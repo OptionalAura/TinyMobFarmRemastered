@@ -1,7 +1,7 @@
 package com.daqem.tinymobfarm.client.gui;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.common.tileentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;

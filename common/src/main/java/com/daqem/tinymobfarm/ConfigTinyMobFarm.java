@@ -1,6 +1,5 @@
 package com.daqem.tinymobfarm;
 
-import com.daqem.tinymobfarm.TinyMobFarm;
 import com.supermartijn642.configlib.api.ConfigBuilders;
 import com.supermartijn642.configlib.api.IConfigBuilder;
 
@@ -9,6 +8,7 @@ import java.util.function.Supplier;
 public class ConfigTinyMobFarm {
 
 	public static final Supplier<Integer> lassoDurability;
+	public static final Supplier<Boolean> allowLassoLooting;
 
 	public static final Supplier<Double> woodFarmSpeed;
 	public static final Supplier<Double> stoneFarmSpeed;
@@ -25,6 +25,10 @@ public class ConfigTinyMobFarm {
 		lassoDurability = config
 				.comment("The durability of the lasso.")
 				.define("Lasso Durability", 256, 1, Integer.MAX_VALUE);
+
+		allowLassoLooting = config
+				.comment("Whether the looting enchantment will be taken into consideration when generating mob loot.")
+				.define("Allow Lasso Looting", true);
 
 		woodFarmSpeed = config
 				.comment("The speed of the wood farm.")

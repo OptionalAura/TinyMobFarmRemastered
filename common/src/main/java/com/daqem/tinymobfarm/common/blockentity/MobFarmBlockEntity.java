@@ -1,4 +1,4 @@
-package com.daqem.tinymobfarm.common.tileentity;
+package com.daqem.tinymobfarm.common.blockentity;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
@@ -21,7 +21,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,12 +29,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
@@ -45,7 +42,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Container {
 
@@ -125,7 +121,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		if (lootTableLocation.isEmpty()) return;
 
 		if (this.level instanceof ServerLevel serverLevel) {
-			List<ItemStack> drops = EntityHelper.generateLoot(new ResourceLocation(lootTableLocation), serverLevel, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, lasso));
+			List<ItemStack> drops = EntityHelper.generateLoot(new ResourceLocation(lootTableLocation), serverLevel, lasso);
 			Direction direction = Direction.DOWN;
 			BlockEntity tileEntity = this.level.getBlockEntity(this.worldPosition.relative(direction));
 			if (tileEntity instanceof Container container) {

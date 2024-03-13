@@ -4,7 +4,7 @@ import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
 import com.daqem.tinymobfarm.common.block.MobFarmBlock;
 import com.daqem.tinymobfarm.common.item.MobFarmBlockItem;
 import com.daqem.tinymobfarm.common.item.LassoItem;
-import com.daqem.tinymobfarm.common.tileentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
 import com.daqem.tinymobfarm.core.EnumMobFarm;
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;

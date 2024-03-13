@@ -1,6 +1,6 @@
 package com.daqem.tinymobfarm.client.render;
 
-import com.daqem.tinymobfarm.common.tileentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

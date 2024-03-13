@@ -3,7 +3,7 @@ package com.daqem.tinymobfarm.common.block;
 import java.util.List;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.common.tileentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
 import com.daqem.tinymobfarm.core.EnumMobFarm;
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 import net.minecraft.core.BlockPos;
