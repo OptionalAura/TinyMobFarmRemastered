@@ -12,8 +12,10 @@ import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
@@ -73,12 +75,24 @@ public class TinyMobFarm {
         ConfigTinyMobFarm.init();
     }
 
-    public static Component translatable(String s) {
+    public static MutableComponent translatable(String s) {
         return translatable(s, new Object[0]);
     }
 
-    public static Component translatable(String s, Object... objects) {
+    public static MutableComponent translatable(String s, Object... objects) {
         return Component.translatable(MOD_ID + "." + s, objects);
+    }
+
+    public static MutableComponent translatable(String s, ChatFormatting color) {
+        MutableComponent component = translatable(s);
+        component.withStyle(color);
+        return component;
+    }
+
+    public static MutableComponent translatable(String s, ChatFormatting color, Object... objects) {
+        MutableComponent component = translatable(s, objects);
+        component.withStyle(color);
+        return component;
     }
 
     public static Component literal(String str) {

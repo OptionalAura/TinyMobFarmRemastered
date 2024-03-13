@@ -3,8 +3,8 @@ package com.daqem.tinymobfarm.common.item;
 import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.core.util.EntityHelper;
-import com.daqem.tinymobfarm.core.util.Msg;
 import com.daqem.tinymobfarm.core.util.NBTHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -32,6 +32,7 @@ import java.util.List;
 public class LassoItem extends Item {
 
 	public LassoItem(Properties properties) {
+		//noinspection UnstableApiUsage
 		super(properties.arch$tab(TinyMobFarm.JOBSPLUS_TOOLS_TAB).defaultDurability(ConfigTinyMobFarm.lassoDurability.get()));
 	}
 
@@ -39,17 +40,18 @@ public class LassoItem extends Item {
 	public @NotNull InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand interactionHand) {
 		if (NBTHelper.hasMob(stack) || !target.isAlive() || !(target instanceof Mob)) return InteractionResult.FAIL;
 
+		Level level = player.level();
 		CompoundTag nbt = NBTHelper.getBaseTag(stack);
 
 		// Cannot capture boss.
 		if (!target.canChangeDimensions()) {
-			if (!player.level().isClientSide()) {
-				Msg.tellPlayer(player, "tinymobfarm.error.cannot_capture_boss");
+			if (!level.isClientSide()) {
+				player.sendSystemMessage(TinyMobFarm.translatable("error.cannot_capture_boss"));
 			}
 			return InteractionResult.SUCCESS;
 		}
 
-		if (!player.level().isClientSide()) {
+		if (!level.isClientSide()) {
 			CompoundTag mobData = target.saveWithoutId(new CompoundTag());
 			mobData.put("Rotation", NBTHelper.createNBTList(
 					DoubleTag.valueOf(0), DoubleTag.valueOf(0)));
@@ -58,7 +60,7 @@ public class LassoItem extends Item {
 
 			Component name = target.getName();
 			nbt.putString(NBTHelper.MOB_NAME, name.getString());
-			nbt.putString(NBTHelper.MOB_ID, target.getType().arch$registryName().toString());
+			nbt.putString(NBTHelper.MOB_ID, String.valueOf(target.getType().arch$registryName()));
 			nbt.putString(NBTHelper.MOB_LOOTTABLE_LOCATION, EntityHelper.getLootTableLocation(target));
 			nbt.putDouble(NBTHelper.MOB_HEALTH, Math.round(target.getHealth() * 10) / 10.0);
 			nbt.putDouble(NBTHelper.MOB_MAX_HEALTH, target.getMaxHealth());
@@ -120,13 +122,15 @@ public class LassoItem extends Item {
 			double health = nbt.getDouble(NBTHelper.MOB_HEALTH);
 			double maxHealth = nbt.getDouble(NBTHelper.MOB_MAX_HEALTH);
 			
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.release_mob.key"));
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.mob_name.key", name));
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.mob_id.key", id));
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.health.key", health, maxHealth));
-			if (nbt.getBoolean(NBTHelper.MOB_HOSTILE)) tooltip.add(Msg.tooltip("tinymobfarm.tooltip.hostile.key"));
+			tooltip.add(TinyMobFarm.translatable("tooltip.release_mob.key", ChatFormatting.GRAY));
+			tooltip.add(TinyMobFarm.translatable("tooltip.mob_name.key", ChatFormatting.GRAY, name));
+			tooltip.add(TinyMobFarm.translatable("tooltip.mob_id.key", ChatFormatting.GRAY, id));
+			tooltip.add(TinyMobFarm.translatable("tooltip.health.key", ChatFormatting.GRAY, health, maxHealth));
+			if (nbt.getBoolean(NBTHelper.MOB_HOSTILE)) {
+				tooltip.add(TinyMobFarm.translatable("tooltip.hostile.key", ChatFormatting.GRAY));
+			}
 		} else {
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.capture.key"));
+			tooltip.add(TinyMobFarm.translatable("tooltip.capture.key", ChatFormatting.GRAY));
 		}
 	}
 	

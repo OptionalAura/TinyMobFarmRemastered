@@ -3,7 +3,6 @@ package com.daqem.tinymobfarm.common.blockentity;
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
 import com.daqem.tinymobfarm.core.EnumMobFarm;
-import com.daqem.tinymobfarm.core.Reference;
 import com.daqem.tinymobfarm.core.util.EntityHelper;
 import com.daqem.tinymobfarm.core.util.FakePlayerHelper;
 import com.daqem.tinymobfarm.core.util.NBTHelper;
@@ -30,8 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -157,6 +154,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 				CompoundTag nbt = NBTHelper.getBaseTag(this.getLasso());
 				String mobName = nbt.getString(NBTHelper.MOB_NAME);
 				String mobId = nbt.getString(NBTHelper.MOB_ID);
+				//noinspection EqualsBetweenInconvertibleTypes
 				if (this.model == null || !this.model.getName().getContents().equals(mobName)) {
 					CompoundTag entityData = nbt.getCompound(NBTHelper.MOB_DATA);
 					entityData.putString("id", mobId);
@@ -177,6 +175,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 	}
 	
 	public void updateRedstone() {
+		if (this.level == null) return;
 		this.powered = this.level.getBestNeighborSignal(worldPosition) != 0;
 	}
 	
@@ -192,11 +191,6 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		return this.powered;
 	}
 	
-	public double getScaledProgress() {
-		if (this.mobFarmData == null) return 0;
-		return this.progress / (double) this.mobFarmData.getMaxProgress();
-	}
-	
 	public LivingEntity getModel() {
 		return this.model;
 	}
@@ -205,12 +199,8 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		return this.modelFacing;
 	}
 	
-	public String getUnlocalizedName() {
-		if (this.mobFarmData == null) return "block." + Reference.MOD_ID + ".default_mob_farm";
-		return this.mobFarmData.getUnlocalizedName();
-	}
-	
 	public void saveAndSync() {
+		if (this.level == null) return;
 		BlockState state = this.level.getBlockState(this.worldPosition);
 		this.level.sendBlockUpdated(worldPosition, state, state, 3);
 		this.setChanged();
@@ -253,7 +243,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 	}
 
 	@Override
-	public Component getDisplayName() {
+	public @NotNull Component getDisplayName() {
 		return Component.translatable(mobFarmData.getUnlocalizedName());
 	}
 

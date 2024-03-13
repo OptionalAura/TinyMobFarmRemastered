@@ -1,7 +1,7 @@
 package com.daqem.tinymobfarm.client.gui;
 
+import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.core.EnumMobFarm;
-import com.daqem.tinymobfarm.core.Reference;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class MobFarmScreen extends AbstractContainerScreen<MobFarmMenu> {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/gui/farm_gui.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(TinyMobFarm.MOD_ID, "textures/gui/farm_gui.png");
 
 	public MobFarmScreen(MobFarmMenu container, Inventory inv, Component text) {
 		super(container, inv, text);

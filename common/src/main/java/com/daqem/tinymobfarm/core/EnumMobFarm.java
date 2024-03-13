@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.daqem.tinymobfarm.ConfigTinyMobFarm;
-import com.daqem.tinymobfarm.core.util.Msg;
+import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.core.util.NBTHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -58,7 +57,7 @@ public enum EnumMobFarm {
 	}
 	
 	public String getUnlocalizedName() {
-		return String.format("block.%s.%s", Reference.MOD_ID, this.registryName);
+		return String.format("block.%s.%s", TinyMobFarm.MOD_ID, this.registryName);
 	}
 	
 	public Block getBaseBlock() {
@@ -79,13 +78,17 @@ public enum EnumMobFarm {
 	
 	public void addTooltip(List<Component> tooltip) {
 		if (!this.canFarmHostile) {
-			tooltip.add(Msg.tooltip("tinymobfarm.tooltip.no_hostile").setStyle(Style.EMPTY.applyFormat(ChatFormatting.RED)));
+			tooltip.add(TinyMobFarm.translatable("tooltip.no_hostile", ChatFormatting.RED));
 		}
-		tooltip.add(Msg.tooltip("tinymobfarm.tooltip.farm_rate", MOB_FARM_SPEED[this.ordinal()]));
-		tooltip.add(Msg.tooltip("tinymobfarm.tooltip.durability_info"));
+		tooltip.add(TinyMobFarm.translatable("tooltip.farm_rate", ChatFormatting.GRAY, MOB_FARM_SPEED[this.ordinal()]));
+		tooltip.add(TinyMobFarm.translatable("tooltip.durability_info", ChatFormatting.GRAY));
 		for (int i: this.normalizedChance.keySet()) {
-			if (i == 0) tooltip.add(Msg.tooltip("tinymobfarm.tooltip.no_durability", this.normalizedChance.get(i)));
-			else tooltip.add(Msg.tooltip("tinymobfarm.tooltip.default_durability", this.normalizedChance.get(i), i));
+			if (i == 0) {
+				tooltip.add(TinyMobFarm.translatable("tooltip.no_durability", ChatFormatting.GRAY, this.normalizedChance.get(i)));
+			}
+			else {
+				tooltip.add(TinyMobFarm.translatable("tooltip.default_durability", ChatFormatting.GRAY, this.normalizedChance.get(i), i));
+			}
 		}
 	}
 }

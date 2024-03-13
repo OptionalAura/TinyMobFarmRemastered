@@ -45,7 +45,7 @@ public class MobFarmBlock extends BaseEntityBlock {
 	
 	public MobFarmBlock(EnumMobFarm mobFarmData) {
 		super(Block.Properties.copy(mobFarmData.getBaseBlock()));
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));;
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 		this.mobFarmData = mobFarmData;
 	}
 	
@@ -81,7 +81,6 @@ public class MobFarmBlock extends BaseEntityBlock {
 	public @NotNull InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
 		if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-		Block block = blockState.getBlock();
 		BlockEntity tileEntity = level.getBlockEntity(pos);
 		if (tileEntity instanceof MobFarmBlockEntity mobFarmBlockEntity) {
             player.openMenu(mobFarmBlockEntity);
@@ -127,7 +126,7 @@ public class MobFarmBlock extends BaseEntityBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	public @NotNull VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		return BOUNDING_BOX;
 	}
 
