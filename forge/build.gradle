@@ -16,8 +16,8 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig "template-common.mixins.json"
-        mixinConfig "template.mixins.json"
+        mixinConfig "tinymobfarm-common.mixins.json"
+        mixinConfig "tinymobfarm.mixins.json"
     }
 }
 

@@ -12,19 +12,19 @@
     "sources": "${mod_repository}"
   },
   "license": "${mod_license}",
-  "icon": "assets/template/icon.png",
+  "icon": "assets/tinymobfarm/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.daqem.template.fabric.TemplateCommonFabric"
+      "com.daqem.tinymobfarm.fabric.TinyMobFarmCommonFabric"
     ],
     "client": [
-      "com.daqem.template.fabric.TemplateClientFabric"
+      "com.daqem.tinymobfarm.fabric.TinyMobFarmClientFabric"
     ]
   },
   "mixins": [
-    "template.mixins.json",
-    "template-common.mixins.json"
+    "tinymobfarm.mixins.json",
+    "tinymobfarm-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",
