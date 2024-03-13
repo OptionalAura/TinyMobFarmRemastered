@@ -3,8 +3,8 @@ package com.daqem.tinymobfarm.core;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
+import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.core.util.Msg;
 import com.daqem.tinymobfarm.core.util.NBTHelper;
 import net.minecraft.ChatFormatting;
@@ -26,29 +26,31 @@ public enum EnumMobFarm {
 	INFERNAL("inferno_farm", Blocks.OBSIDIAN, true, new int[] {0, 0, 1}),
 	ULTIMATE("ultimate_farm", Blocks.OBSIDIAN, true, new int[] {0});
 	
-	private static final double[] MOB_FARM_SPEED = {50.0, 40.0, 30.0, 20.0, 10.0, 5.0, 2.5, 0.5};
+	private static final double[] MOB_FARM_SPEED = {ConfigTinyMobFarm.woodFarmSpeed.get(),
+			ConfigTinyMobFarm.stoneFarmSpeed.get(), ConfigTinyMobFarm.ironFarmSpeed.get(),
+			ConfigTinyMobFarm.goldFarmSpeed.get(), ConfigTinyMobFarm.diamondFarmSpeed.get(),
+			ConfigTinyMobFarm.emeraldFarmSpeed.get(), ConfigTinyMobFarm.infernoFarmSpeed.get(),
+			ConfigTinyMobFarm.ultimateFarmSpeed.get()};
 	
-	private String registryName;
-	private Block baseBlock;
-	private boolean canFarmHostile;
-	private int[] damageChance;
-	private Map<Integer, Integer> normalizedChance;
+	private final String registryName;
+	private final Block baseBlock;
+	private final boolean canFarmHostile;
+	private final int[] damageChance;
+	private final Map<Integer, Integer> normalizedChance;
 	
-	private EnumMobFarm(String registryName, Block baseBlock, boolean canFarmHostile, int[] damageChance) {
+	EnumMobFarm(String registryName, Block baseBlock, boolean canFarmHostile, int[] damageChance) {
 		this.registryName = registryName;
 		this.baseBlock = baseBlock;
 		this.canFarmHostile = canFarmHostile;
 		this.damageChance = damageChance;
 		
-		this.normalizedChance = new HashMap<Integer, Integer>();
+		this.normalizedChance = new HashMap<>();
 		for (int i: this.damageChance) {
 			if (!this.normalizedChance.containsKey(i)) this.normalizedChance.put(i, 0);
 			this.normalizedChance.put(i, this.normalizedChance.get(i) + 1);
 		}
 		int denominator = this.damageChance.length;
-		for (int i: this.normalizedChance.keySet()) {
-			this.normalizedChance.put(i, (int) (this.normalizedChance.get(i) * 100.0 / denominator));
-		}
+        this.normalizedChance.replaceAll((i, v) -> (int) (v * 100.0 / denominator));
 	}
 	
 	public String getRegistryName() {

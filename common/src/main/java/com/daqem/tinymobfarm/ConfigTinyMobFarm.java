@@ -28,35 +28,35 @@ public class ConfigTinyMobFarm {
 
 		woodFarmSpeed = config
 				.comment("The speed of the wood farm.")
-				.define("Wood Farm Speed", 50.0, 0.0, Double.MAX_VALUE);
+				.define("Wood Farm Speed", 50.0, 0.001, Double.MAX_VALUE);
 
 		stoneFarmSpeed = config
 				.comment("The speed of the stone farm.")
-				.define("Stone Farm Speed", 40.0, 0.0, Double.MAX_VALUE);
+				.define("Stone Farm Speed", 40.0, 0.001, Double.MAX_VALUE);
 
 		ironFarmSpeed = config
 				.comment("The speed of the iron farm.")
-				.define("Iron Farm Speed", 30.0, 0.0, Double.MAX_VALUE);
+				.define("Iron Farm Speed", 30.0, 0.001, Double.MAX_VALUE);
 
 		goldFarmSpeed = config
 				.comment("The speed of the gold farm.")
-				.define("Gold Farm Speed", 20.0, 0.0, Double.MAX_VALUE);
+				.define("Gold Farm Speed", 20.0, 0.001, Double.MAX_VALUE);
 
 		diamondFarmSpeed = config
 				.comment("The speed of the diamond farm.")
-				.define("Diamond Farm Speed", 10.0, 0.0, Double.MAX_VALUE);
+				.define("Diamond Farm Speed", 10.0, 0.001, Double.MAX_VALUE);
 
 		emeraldFarmSpeed = config
 				.comment("The speed of the emerald farm.")
-				.define("Emerald Farm Speed", 5.0, 0.0, Double.MAX_VALUE);
+				.define("Emerald Farm Speed", 5.0, 0.001, Double.MAX_VALUE);
 
 		ultimateFarmSpeed = config
 				.comment("The speed of the ultimate farm.")
-				.define("Ultimate Farm Speed", 2.5, 0.0, Double.MAX_VALUE);
+				.define("Ultimate Farm Speed", 2.5, 0.001, Double.MAX_VALUE);
 
 		infernoFarmSpeed = config
 				.comment("The speed of the inferno farm.")
-				.define("Inferno Farm Speed", 0.5, 0.0, Double.MAX_VALUE);
+				.define("Inferno Farm Speed", 0.5, 0.001, Double.MAX_VALUE);
 
 		config.build();
 	}
