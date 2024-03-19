@@ -1,11 +1,10 @@
 package com.daqem.tinymobfarm;
 
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
-import com.daqem.tinymobfarm.common.block.MobFarmBlock;
-import com.daqem.tinymobfarm.common.item.MobFarmBlockItem;
-import com.daqem.tinymobfarm.common.item.LassoItem;
-import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
-import com.daqem.tinymobfarm.core.EnumMobFarm;
+import com.daqem.tinymobfarm.block.MobFarmBlock;
+import com.daqem.tinymobfarm.item.MobFarmBlockItem;
+import com.daqem.tinymobfarm.item.LassoItem;
+import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;
 import dev.architectury.registry.CreativeTabRegistry;
@@ -45,14 +44,14 @@ public class TinyMobFarm {
 
     public static final Registrar<Block> BLOCKS = MANAGER.get().get(Registries.BLOCK);
 
-    public static final RegistrySupplier<Block> WOODEN_MOB_FARM_BLOCK = BLOCKS.register(getId("wood_farm"), () -> new MobFarmBlock(EnumMobFarm.WOOD));
-    public static final RegistrySupplier<Block> STONE_MOB_FARM_BLOCK = BLOCKS.register(getId("stone_farm"), () -> new MobFarmBlock(EnumMobFarm.STONE));
-    public static final RegistrySupplier<Block> IRON_MOB_FARM_BLOCK = BLOCKS.register(getId("iron_farm"), () -> new MobFarmBlock(EnumMobFarm.IRON));
-    public static final RegistrySupplier<Block> GOLD_MOB_FARM_BLOCK = BLOCKS.register(getId("gold_farm"), () -> new MobFarmBlock(EnumMobFarm.GOLD));
-    public static final RegistrySupplier<Block> DIAMOND_MOB_FARM_BLOCK = BLOCKS.register(getId("diamond_farm"), () -> new MobFarmBlock(EnumMobFarm.DIAMOND));
-    public static final RegistrySupplier<Block> EMERALD_MOB_FARM_BLOCK = BLOCKS.register(getId("emerald_farm"), () -> new MobFarmBlock(EnumMobFarm.EMERALD));
-    public static final RegistrySupplier<Block> INFERNAL_MOB_FARM_BLOCK = BLOCKS.register(getId("inferno_farm"), () -> new MobFarmBlock(EnumMobFarm.INFERNAL));
-    public static final RegistrySupplier<Block> ULTIMATE_MOB_FARM_BLOCK = BLOCKS.register(getId("ultimate_farm"), () -> new MobFarmBlock(EnumMobFarm.ULTIMATE));
+    public static final RegistrySupplier<Block> WOODEN_MOB_FARM_BLOCK = BLOCKS.register(getId("wood_farm"), () -> new MobFarmBlock(MobFarmType.WOOD));
+    public static final RegistrySupplier<Block> STONE_MOB_FARM_BLOCK = BLOCKS.register(getId("stone_farm"), () -> new MobFarmBlock(MobFarmType.STONE));
+    public static final RegistrySupplier<Block> IRON_MOB_FARM_BLOCK = BLOCKS.register(getId("iron_farm"), () -> new MobFarmBlock(MobFarmType.IRON));
+    public static final RegistrySupplier<Block> GOLD_MOB_FARM_BLOCK = BLOCKS.register(getId("gold_farm"), () -> new MobFarmBlock(MobFarmType.GOLD));
+    public static final RegistrySupplier<Block> DIAMOND_MOB_FARM_BLOCK = BLOCKS.register(getId("diamond_farm"), () -> new MobFarmBlock(MobFarmType.DIAMOND));
+    public static final RegistrySupplier<Block> EMERALD_MOB_FARM_BLOCK = BLOCKS.register(getId("emerald_farm"), () -> new MobFarmBlock(MobFarmType.EMERALD));
+    public static final RegistrySupplier<Block> INFERNAL_MOB_FARM_BLOCK = BLOCKS.register(getId("inferno_farm"), () -> new MobFarmBlock(MobFarmType.INFERNAL));
+    public static final RegistrySupplier<Block> ULTIMATE_MOB_FARM_BLOCK = BLOCKS.register(getId("ultimate_farm"), () -> new MobFarmBlock(MobFarmType.ULTIMATE));
 
     public static final Registrar<BlockEntityType<?>> BLOCK_ENTITIES = MANAGER.get().get(Registries.BLOCK_ENTITY_TYPE);
 

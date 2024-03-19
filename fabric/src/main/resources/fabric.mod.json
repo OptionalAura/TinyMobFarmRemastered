@@ -22,10 +22,6 @@
       "com.daqem.tinymobfarm.fabric.TinyMobFarmClientFabric"
     ]
   },
-  "mixins": [
-    "tinymobfarm.mixins.json",
-    "tinymobfarm-common.mixins.json"
-  ],
   "depends": {
     "fabric": "*",
     "minecraft": ">=${minecraft_version}",

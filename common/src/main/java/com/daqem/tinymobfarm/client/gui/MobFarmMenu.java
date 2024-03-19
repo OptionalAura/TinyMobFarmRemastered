@@ -1,7 +1,7 @@
 package com.daqem.tinymobfarm.client.gui;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,6 +15,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class MobFarmMenu extends AbstractContainerMenu {
 
+	public static final int LASSO_SLOT = 0;
+	public static final int LASSO_SLOT_X = 71;
+	public static final int LASSO_SLOT_Y = 33;
+
 	private final ContainerData containerData;
 
 	public MobFarmMenu(int windowId, Inventory inv, Container container, ContainerData containerData) {
@@ -22,12 +26,12 @@ public class MobFarmMenu extends AbstractContainerMenu {
 
 		this.containerData = containerData;
 
-		this.addSlot(new LassoSlot(container, 0, 80, 25) {
+		this.addSlot(new LassoSlot(container, LASSO_SLOT, LASSO_SLOT_X, LASSO_SLOT_Y) {
 			@Override
 			public void setChanged() {
 				super.setChanged();
-				if (this.container instanceof MobFarmBlockEntity) {
-					((MobFarmBlockEntity) this.container).saveAndSync();
+				if (this.container instanceof MobFarmBlockEntity mobFarmBlockEntity) {
+					mobFarmBlockEntity.saveAndSync();
 				}
 			}
 		});
@@ -56,35 +60,35 @@ public class MobFarmMenu extends AbstractContainerMenu {
 	
 	@Override
 	public @NotNull ItemStack quickMoveStack(Player player, int index) {
-		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get(index);
-	
-		if (slot.hasItem()) {
-			ItemStack itemstack1 = slot.getItem();
-			itemstack = itemstack1.copy();
-		
-			int containerSlots = slots.size() - player.getInventory().items.size();
-	
-			if (index < containerSlots) {
-				if (!this.moveItemStackTo(itemstack1, containerSlots, slots.size(), true)) {
-					return ItemStack.EMPTY;
-				}
-			} else if (!this.moveItemStackTo(itemstack1, 0, containerSlots, false)) {
-				return ItemStack.EMPTY;
-			}
-	
-			if (itemstack1.getCount() == 0) {
-				slot.set(ItemStack.EMPTY);
-			} else {
-				slot.setChanged();
-			}
-	
-			if (itemstack1.getCount() == itemstack.getCount()) {
-				return ItemStack.EMPTY;
-			}
-			slot.onTake(player, itemstack1);
+		if (!slot.hasItem()) {
+			return ItemStack.EMPTY;
 		}
-		return itemstack;
+
+		ItemStack originalItemStack = slot.getItem();
+		ItemStack copiedItemStack = originalItemStack.copy();
+
+		int containerSlots = slots.size() - player.getInventory().items.size();
+		boolean moved = index < containerSlots
+				? this.moveItemStackTo(originalItemStack, containerSlots, slots.size(), true)
+				: this.moveItemStackTo(originalItemStack, 0, containerSlots, false);
+
+		if (!moved) {
+			return ItemStack.EMPTY;
+		}
+
+		if (originalItemStack.getCount() == 0) {
+			slot.set(ItemStack.EMPTY);
+		} else {
+			slot.setChanged();
+		}
+
+		if (originalItemStack.getCount() == copiedItemStack.getCount()) {
+			return ItemStack.EMPTY;
+		}
+
+		slot.onTake(player, originalItemStack);
+		return copiedItemStack;
 	}
 
 	public int getProgress() {

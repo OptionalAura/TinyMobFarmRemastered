@@ -16,7 +16,7 @@
 	"tinymobfarm.error.cannot_capture_boss": "Cannot capture boss mobs.",
 	"tinymobfarm.error.blacklisted_mob": "This mob is blacklisted.",
 
-	"tinymobfarm.gui.higher_tier": "This mob needs higher farm tiers.",
+	"tinymobfarm.gui.higher_tier": "Requires higher farm tier.",
 	"tinymobfarm.gui.redstone_disable": "Disabled by redstone.",
 	"tinymobfarm.gui.no_lasso": "Insert a lasso to activate.",
 

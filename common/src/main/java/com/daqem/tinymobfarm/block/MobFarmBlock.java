@@ -1,10 +1,10 @@
-package com.daqem.tinymobfarm.common.block;
+package com.daqem.tinymobfarm.block;
 
 import java.util.List;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
-import com.daqem.tinymobfarm.core.EnumMobFarm;
+import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.MobFarmType;
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,9 +41,9 @@ public class MobFarmBlock extends BaseEntityBlock {
 	
 	private static final VoxelShape BOUNDING_BOX = Block.box(1, 0, 1, 15, 14, 15);
 
-	private final EnumMobFarm mobFarmData;
+	private final MobFarmType mobFarmData;
 	
-	public MobFarmBlock(EnumMobFarm mobFarmData) {
+	public MobFarmBlock(MobFarmType mobFarmData) {
 		super(Block.Properties.copy(mobFarmData.getBaseBlock()));
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 		this.mobFarmData = mobFarmData;

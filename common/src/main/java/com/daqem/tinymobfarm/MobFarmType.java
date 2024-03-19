@@ -1,4 +1,4 @@
-package com.daqem.tinymobfarm.core;
+package com.daqem.tinymobfarm;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.core.util.NBTHelper;
+import com.daqem.tinymobfarm.util.NBTHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;;
 
-public enum EnumMobFarm {
+public enum MobFarmType {
 
 	WOOD("wood_farm", Blocks.OAK_WOOD, false, new int[] {2, 3, 3}),
 	STONE("stone_farm", Blocks.STONE, false, new int[] {1, 2, 3}),
@@ -37,7 +37,7 @@ public enum EnumMobFarm {
 	private final int[] damageChance;
 	private final Map<Integer, Integer> normalizedChance;
 	
-	EnumMobFarm(String registryName, Block baseBlock, boolean canFarmHostile, int[] damageChance) {
+	MobFarmType(String registryName, Block baseBlock, boolean canFarmHostile, int[] damageChance) {
 		this.registryName = registryName;
 		this.baseBlock = baseBlock;
 		this.canFarmHostile = canFarmHostile;

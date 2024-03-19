@@ -1,11 +1,11 @@
-package com.daqem.tinymobfarm.common.blockentity;
+package com.daqem.tinymobfarm.blockentity;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
-import com.daqem.tinymobfarm.core.EnumMobFarm;
-import com.daqem.tinymobfarm.core.util.EntityHelper;
-import com.daqem.tinymobfarm.core.util.FakePlayerHelper;
-import com.daqem.tinymobfarm.core.util.NBTHelper;
+import com.daqem.tinymobfarm.MobFarmType;
+import com.daqem.tinymobfarm.util.EntityHelper;
+import com.daqem.tinymobfarm.util.FakePlayerHelper;
+import com.daqem.tinymobfarm.util.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -42,9 +42,9 @@ import java.util.List;
 
 public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Container {
 
-	private EnumMobFarm mobFarmData;
-	private LivingEntity model;
-	private Direction modelFacing;
+	private MobFarmType mobFarmData;
+	private LivingEntity livingEntity;
+	private Direction modelFacing = Direction.NORTH;
 	protected NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
 	private int progress;
 	private boolean powered;
@@ -149,19 +149,19 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		if (this.level == null) return;
 		if (this.level.isClientSide()) {
 			if (this.getLasso().isEmpty()) {
-				this.model = null;
+				this.livingEntity = null;
 			} else {
 				CompoundTag nbt = NBTHelper.getBaseTag(this.getLasso());
 				String mobName = nbt.getString(NBTHelper.MOB_NAME);
 				String mobId = nbt.getString(NBTHelper.MOB_ID);
 				//noinspection EqualsBetweenInconvertibleTypes
-				if (this.model == null || !this.model.getName().getContents().equals(mobName)) {
+				if (this.livingEntity == null || !this.livingEntity.getName().getContents().equals(mobName)) {
 					CompoundTag entityData = nbt.getCompound(NBTHelper.MOB_DATA);
 					entityData.putString("id", mobId);
 					Entity newModel = EntityType.loadEntityRecursive(entityData, this.level, entity -> entity);
 					
 					if (newModel instanceof LivingEntity) {
-						this.model = (LivingEntity) newModel;
+						this.livingEntity = (LivingEntity) newModel;
 						this.modelFacing = this.level.getBlockState(this.worldPosition).getValue(HorizontalDirectionalBlock.FACING);
 					}
 				}
@@ -183,7 +183,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		return this.items.get(0);
 	}
 	
-	public void setMobFarmData(EnumMobFarm mobFarmData) {
+	public void setMobFarmData(MobFarmType mobFarmData) {
 		this.mobFarmData = mobFarmData;
 	}
 	
@@ -191,8 +191,8 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 		return this.powered;
 	}
 	
-	public LivingEntity getModel() {
-		return this.model;
+	public LivingEntity getLivingEntity() {
+		return this.livingEntity;
 	}
 	
 	public Direction getModelFacing() {
@@ -209,7 +209,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
-		this.mobFarmData = EnumMobFarm.values()[nbt.getInt(NBTHelper.MOB_FARM_DATA)];
+		this.mobFarmData = MobFarmType.values()[nbt.getInt(NBTHelper.MOB_FARM_DATA)];
 		this.progress = nbt.getInt(NBTHelper.CURR_PROGRESS);
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(nbt, this.items);
