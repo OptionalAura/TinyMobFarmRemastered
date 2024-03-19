@@ -22,6 +22,7 @@
 
 	"tinymobfarm.tooltip.release_mob.key": "Щелкните правой кнопкой мыши на блоке, чтобы освободить моба.",
 	"tinymobfarm.tooltip.mob_name.key": "Moб: %s",
+	"tinymobfarm.tooltip.mob_id.key": "ID: %s",
 	"tinymobfarm.tooltip.health.key": "Здоровье: %d/%d",
 	"tinymobfarm.tooltip.hostile.key": "Моб враждебен.",
 	"tinymobfarm.tooltip.capture.key": "Щелкните правой кнопкой мыши по мобу, чтобы захватить.",

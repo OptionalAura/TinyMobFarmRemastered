@@ -2,7 +2,7 @@
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"grass": "tinymobfarm:block/grass",
-		"glass": "tinymobfarm:block/glass"
+		"glass": "minecraft:block/glass"
 	},
 	"elements": [
 		{
