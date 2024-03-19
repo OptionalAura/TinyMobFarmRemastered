@@ -126,7 +126,6 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 					List<ItemStack> toRemove = new ArrayList<>();
 					for (int i = 0; i < drops.size(); i++) {
 						ItemStack drop = drops.get(i);
-						TinyMobFarm.LOGGER.info("Dropping " + drop);
 						ItemStack dropLeftOver = HopperBlockEntity.addItem(this, container, drop, direction);
 						if (dropLeftOver.isEmpty()) {
 							toRemove.add(drop);
