@@ -15,9 +15,6 @@ loom {
     forge {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        mixinConfig "tinymobfarm-common.mixins.json"
-        mixinConfig "tinymobfarm.mixins.json"
     }
 }
 

@@ -1,6 +1,6 @@
 package com.daqem.tinymobfarm.client.render;
 
-import com.daqem.tinymobfarm.common.blockentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -17,27 +17,26 @@ public class MobFarmRenderer implements BlockEntityRenderer<MobFarmBlockEntity> 
     }
 
 	@Override
-	public void render(MobFarmBlockEntity mobFarmBlockEntity, float partialTicks, PoseStack matrix,
+	public void render(MobFarmBlockEntity mobFarmBlockEntity, float partialTicks, PoseStack poseStack,
 					   MultiBufferSource typeBuffer, int combinedLight, int combinedOverlay) {
 		
-		LivingEntity model = mobFarmBlockEntity.getModel();
-		if (model != null) {
+		LivingEntity livingEntity = mobFarmBlockEntity.getLivingEntity();
+		if (livingEntity != null) {
 			float modelHorizontalAngle = -mobFarmBlockEntity.getModelFacing().toYRot();
-			
-			AABB box = model.getBoundingBox();
-			double length = Math.max(
-					Math.max(box.maxX - box.minX, box.maxY - box.minY), box.maxZ - box.minZ);
+
+			AABB box = livingEntity.getBoundingBox();
+			double length = Math.max(Math.max(box.maxX - box.minX, box.maxY - box.minY), box.maxZ - box.minZ);
 			float modelScale = (float) (0.5 / length);
-			
-			matrix.pushPose();
-			matrix.translate(0.5, 0.125, 0.5);
-			matrix.scale(modelScale, modelScale, modelScale);
-			
-			matrix.mulPose(Axis.YP.rotationDegrees(modelHorizontalAngle));
-			
-			Minecraft.getInstance().getEntityRenderDispatcher().render(model, 0, 0, 0, 0,
-					partialTicks, matrix, typeBuffer, combinedLight);
-			matrix.popPose();
+
+			poseStack.pushPose();
+			poseStack.translate(0.5, 0.125, 0.5);
+			poseStack.scale(modelScale, modelScale, modelScale);
+
+			poseStack.mulPose(Axis.YP.rotationDegrees(modelHorizontalAngle));
+
+			Minecraft.getInstance().getEntityRenderDispatcher().render(livingEntity, 0, 0, 0, 0,
+					partialTicks, poseStack, typeBuffer, combinedLight);
+			poseStack.popPose();
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package com.daqem.tinymobfarm.client.gui;
 
-import com.daqem.tinymobfarm.common.item.LassoItem;
-import com.daqem.tinymobfarm.core.util.NBTHelper;
+import com.daqem.tinymobfarm.item.LassoItem;
+import com.daqem.tinymobfarm.util.NBTHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

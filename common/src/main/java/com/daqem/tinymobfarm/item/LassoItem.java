@@ -1,20 +1,18 @@
-package com.daqem.tinymobfarm.common.item;
+package com.daqem.tinymobfarm.item;
 
 import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.core.util.EntityHelper;
-import com.daqem.tinymobfarm.core.util.NBTHelper;
+import com.daqem.tinymobfarm.util.EntityHelper;
+import com.daqem.tinymobfarm.util.NBTHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
@@ -82,32 +80,23 @@ public class LassoItem extends Item {
 	@Override
 	public @NotNull InteractionResult useOn(UseOnContext context) {
 		Player player = context.getPlayer();
+		if (player == null) return InteractionResult.FAIL;
+
 		ItemStack stack = context.getItemInHand();
+		if (!NBTHelper.hasMob(stack)) return InteractionResult.FAIL;
+
 		Direction facing = context.getClickedFace();
 		BlockPos pos = context.getClickedPos().offset(facing.getStepX(), facing.getStepY(), facing.getStepZ());
-		Level world = context.getLevel();
+		Level level = context.getLevel();
 
-		if (!NBTHelper.hasMob(stack)) return InteractionResult.FAIL;
-		if (player == null) return InteractionResult.FAIL;
 		if (!player.mayUseItemAt(pos, facing, stack)) return InteractionResult.FAIL;
 
-		if (!context.getLevel().isClientSide()) {
-			CompoundTag nbt = NBTHelper.getBaseTag(stack);
-			CompoundTag mobData = nbt.getCompound(NBTHelper.MOB_DATA);
-			String id = nbt.getString(NBTHelper.MOB_ID);
-
-			DoubleTag x = DoubleTag.valueOf(pos.getX() + 0.5);
-			DoubleTag y = DoubleTag.valueOf(pos.getY());
-			DoubleTag z = DoubleTag.valueOf(pos.getZ() + 0.5);
-			ListTag mobPos = NBTHelper.createNBTList(x, y, z);
-			mobData.put("Pos", mobPos);
-			mobData.putString("id", id);
-
-			Entity mob = EntityType.loadEntityRecursive(mobData, world, entity -> entity);
-			if (mob != null) world.addFreshEntity(mob);
+		if (!level.isClientSide()) {
+			Entity mob = EntityHelper.getEntityFromLasso(stack, pos, level);
+			if (mob != null) level.addFreshEntity(mob);
 
 			stack.removeTagKey(NBTHelper.MOB);
-			stack.hurtAndBreak(1, player, wutTheFak -> {});
+			stack.hurtAndBreak(1, player, player1 -> {});
 		}
 
 		return InteractionResult.SUCCESS;
@@ -117,13 +106,12 @@ public class LassoItem extends Item {
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
 		if (NBTHelper.hasMob(stack)) {
 			CompoundTag nbt = NBTHelper.getBaseTag(stack);
-			String name = nbt.getString(NBTHelper.MOB_NAME);
 			String id = nbt.getString(NBTHelper.MOB_ID);
 			double health = nbt.getDouble(NBTHelper.MOB_HEALTH);
 			double maxHealth = nbt.getDouble(NBTHelper.MOB_MAX_HEALTH);
 			
 			tooltip.add(TinyMobFarm.translatable("tooltip.release_mob.key", ChatFormatting.GRAY));
-			tooltip.add(TinyMobFarm.translatable("tooltip.mob_name.key", ChatFormatting.GRAY, name));
+			tooltip.add(TinyMobFarm.translatable("tooltip.mob_name.key", ChatFormatting.GRAY, getMobName(stack)));
 			tooltip.add(TinyMobFarm.translatable("tooltip.mob_id.key", ChatFormatting.GRAY, id));
 			tooltip.add(TinyMobFarm.translatable("tooltip.health.key", ChatFormatting.GRAY, health, maxHealth));
 			if (nbt.getBoolean(NBTHelper.MOB_HOSTILE)) {
@@ -137,5 +125,10 @@ public class LassoItem extends Item {
 	@Override
 	public boolean isFoil(ItemStack stack) {
 		return NBTHelper.hasMob(stack);
+	}
+
+	public Component getMobName(ItemStack itemStack) {
+		CompoundTag nbt = NBTHelper.getBaseTag(itemStack);
+		return TinyMobFarm.literal(nbt.getString(NBTHelper.MOB_NAME));
 	}
 }

@@ -1,4 +1,4 @@
-package com.daqem.tinymobfarm.core.util;
+package com.daqem.tinymobfarm.util;
 
 import java.util.UUID;
 

@@ -1,9 +1,9 @@
-package com.daqem.tinymobfarm.common.item;
+package com.daqem.tinymobfarm.item;
 
 import java.util.List;
 
 import com.daqem.tinymobfarm.TinyMobFarm;
-import com.daqem.tinymobfarm.common.block.MobFarmBlock;
+import com.daqem.tinymobfarm.block.MobFarmBlock;
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
