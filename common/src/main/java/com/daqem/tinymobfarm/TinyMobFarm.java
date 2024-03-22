@@ -44,14 +44,14 @@ public class TinyMobFarm {
 
     public static final Registrar<Block> BLOCKS = MANAGER.get().get(Registries.BLOCK);
 
-    public static final RegistrySupplier<Block> WOODEN_MOB_FARM_BLOCK = BLOCKS.register(getId("wood_farm"), () -> new MobFarmBlock(MobFarmType.WOOD));
-    public static final RegistrySupplier<Block> STONE_MOB_FARM_BLOCK = BLOCKS.register(getId("stone_farm"), () -> new MobFarmBlock(MobFarmType.STONE));
-    public static final RegistrySupplier<Block> IRON_MOB_FARM_BLOCK = BLOCKS.register(getId("iron_farm"), () -> new MobFarmBlock(MobFarmType.IRON));
-    public static final RegistrySupplier<Block> GOLD_MOB_FARM_BLOCK = BLOCKS.register(getId("gold_farm"), () -> new MobFarmBlock(MobFarmType.GOLD));
-    public static final RegistrySupplier<Block> DIAMOND_MOB_FARM_BLOCK = BLOCKS.register(getId("diamond_farm"), () -> new MobFarmBlock(MobFarmType.DIAMOND));
-    public static final RegistrySupplier<Block> EMERALD_MOB_FARM_BLOCK = BLOCKS.register(getId("emerald_farm"), () -> new MobFarmBlock(MobFarmType.EMERALD));
-    public static final RegistrySupplier<Block> INFERNAL_MOB_FARM_BLOCK = BLOCKS.register(getId("inferno_farm"), () -> new MobFarmBlock(MobFarmType.INFERNAL));
-    public static final RegistrySupplier<Block> ULTIMATE_MOB_FARM_BLOCK = BLOCKS.register(getId("ultimate_farm"), () -> new MobFarmBlock(MobFarmType.ULTIMATE));
+    public static final RegistrySupplier<MobFarmBlock> WOODEN_MOB_FARM_BLOCK = BLOCKS.register(getId("wood_farm"), () -> new MobFarmBlock(MobFarmType.WOOD));
+    public static final RegistrySupplier<MobFarmBlock> STONE_MOB_FARM_BLOCK = BLOCKS.register(getId("stone_farm"), () -> new MobFarmBlock(MobFarmType.STONE));
+    public static final RegistrySupplier<MobFarmBlock> IRON_MOB_FARM_BLOCK = BLOCKS.register(getId("iron_farm"), () -> new MobFarmBlock(MobFarmType.IRON));
+    public static final RegistrySupplier<MobFarmBlock> GOLD_MOB_FARM_BLOCK = BLOCKS.register(getId("gold_farm"), () -> new MobFarmBlock(MobFarmType.GOLD));
+    public static final RegistrySupplier<MobFarmBlock> DIAMOND_MOB_FARM_BLOCK = BLOCKS.register(getId("diamond_farm"), () -> new MobFarmBlock(MobFarmType.DIAMOND));
+    public static final RegistrySupplier<MobFarmBlock> EMERALD_MOB_FARM_BLOCK = BLOCKS.register(getId("emerald_farm"), () -> new MobFarmBlock(MobFarmType.EMERALD));
+    public static final RegistrySupplier<MobFarmBlock> INFERNAL_MOB_FARM_BLOCK = BLOCKS.register(getId("inferno_farm"), () -> new MobFarmBlock(MobFarmType.INFERNAL));
+    public static final RegistrySupplier<MobFarmBlock> ULTIMATE_MOB_FARM_BLOCK = BLOCKS.register(getId("ultimate_farm"), () -> new MobFarmBlock(MobFarmType.ULTIMATE));
 
     public static final Registrar<BlockEntityType<?>> BLOCK_ENTITIES = MANAGER.get().get(Registries.BLOCK_ENTITY_TYPE);
 
@@ -59,16 +59,16 @@ public class TinyMobFarm {
 
     public static final Registrar<Item> ITEMS = MANAGER.get().get(Registries.ITEM);
 
-    public static final RegistrySupplier<Item> LASSO = ITEMS.register(getId("lasso"), () -> new LassoItem(new Item.Properties()));
+    public static final RegistrySupplier<LassoItem> LASSO = ITEMS.register(getId("lasso"), () -> new LassoItem(new Item.Properties()));
 
-    public static final RegistrySupplier<Item> WOODEN_MOB_FARM = ITEMS.register(getId("wood_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.WOODEN_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> STONE_MOB_FARM = ITEMS.register(getId("stone_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.STONE_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> IRON_MOB_FARM = ITEMS.register(getId("iron_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.IRON_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> GOLD_MOB_FARM = ITEMS.register(getId("gold_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.GOLD_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> DIAMOND_MOB_FARM = ITEMS.register(getId("diamond_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.DIAMOND_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> EMERALD_MOB_FARM = ITEMS.register(getId("emerald_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.EMERALD_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> INFERNAL_MOB_FARM = ITEMS.register(getId("inferno_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.INFERNAL_MOB_FARM_BLOCK.get(), new Item.Properties()));
-    public static final RegistrySupplier<Item> ULTIMATE_MOB_FARM = ITEMS.register(getId("ultimate_farm"), () -> new MobFarmBlockItem((MobFarmBlock) TinyMobFarm.ULTIMATE_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> WOODEN_MOB_FARM = ITEMS.register(getId("wood_farm"), () -> new MobFarmBlockItem(TinyMobFarm.WOODEN_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> STONE_MOB_FARM = ITEMS.register(getId("stone_farm"), () -> new MobFarmBlockItem(TinyMobFarm.STONE_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> IRON_MOB_FARM = ITEMS.register(getId("iron_farm"), () -> new MobFarmBlockItem(TinyMobFarm.IRON_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> GOLD_MOB_FARM = ITEMS.register(getId("gold_farm"), () -> new MobFarmBlockItem(TinyMobFarm.GOLD_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> DIAMOND_MOB_FARM = ITEMS.register(getId("diamond_farm"), () -> new MobFarmBlockItem(TinyMobFarm.DIAMOND_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> EMERALD_MOB_FARM = ITEMS.register(getId("emerald_farm"), () -> new MobFarmBlockItem(TinyMobFarm.EMERALD_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> INFERNAL_MOB_FARM = ITEMS.register(getId("inferno_farm"), () -> new MobFarmBlockItem(TinyMobFarm.INFERNAL_MOB_FARM_BLOCK.get(), new Item.Properties()));
+    public static final RegistrySupplier<MobFarmBlockItem> ULTIMATE_MOB_FARM = ITEMS.register(getId("ultimate_farm"), () -> new MobFarmBlockItem(TinyMobFarm.ULTIMATE_MOB_FARM_BLOCK.get(), new Item.Properties()));
 
     public static void init() {
         ConfigTinyMobFarm.init();

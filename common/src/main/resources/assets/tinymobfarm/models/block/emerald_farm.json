@@ -1,7 +1,7 @@
 {
 	"parent": "tinymobfarm:block/farm_preset",
 	"textures": {
-		"particle": "tinymobfarm:block/emerald",
-		"material": "tinymobfarm:block/emerald"
+		"particle": "minecraft:block/emerald_block",
+		"material": "minecraft:block/emerald_block"
 	}
 }
