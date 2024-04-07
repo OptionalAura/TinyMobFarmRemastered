@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MobFarmBlockItem extends BlockItem {
 
-	private Consumer<List<Component>> tooltipBuilder;
+	private final Consumer<List<Component>> tooltipBuilder;
 	
 	public MobFarmBlockItem(MobFarmBlock block, Properties builder) {
 		//noinspection UnstableApiUsage

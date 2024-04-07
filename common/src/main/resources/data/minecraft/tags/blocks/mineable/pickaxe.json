@@ -1,0 +1,11 @@
+{
+  "values": [
+    "tinymobfarm:stone_farm",
+    "tinymobfarm:iron_farm",
+    "tinymobfarm:gold_farm",
+    "tinymobfarm:diamond_farm",
+    "tinymobfarm:emerald_farm",
+    "tinymobfarm:inferno_farm",
+    "tinymobfarm:ultimate_farm"
+  ]
+}
