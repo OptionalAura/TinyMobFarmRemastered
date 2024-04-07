@@ -4,6 +4,7 @@ import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.util.EntityHelper;
 import com.daqem.tinymobfarm.util.NBTHelper;
+import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,8 +35,7 @@ public class LassoItem extends Item {
 		super(properties.arch$tab(TinyMobFarm.JOBSPLUS_TOOLS_TAB).defaultDurability(ConfigTinyMobFarm.lassoDurability.get()));
 	}
 
-	@Override
-	public @NotNull InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand interactionHand) {
+	public @NotNull InteractionResult interactMob(ItemStack stack, Player player, LivingEntity target, InteractionHand interactionHand) {
 		if (NBTHelper.hasMob(stack) || !target.isAlive() || !(target instanceof Mob)) return InteractionResult.FAIL;
 
 		Level level = player.level();
@@ -53,6 +53,8 @@ public class LassoItem extends Item {
 			CompoundTag mobData = target.saveWithoutId(new CompoundTag());
 			mobData.put("Rotation", NBTHelper.createNBTList(
 					DoubleTag.valueOf(0), DoubleTag.valueOf(0)));
+			mobData.remove("Fire");
+			mobData.remove("HurtTime");
 
 			nbt.put(NBTHelper.MOB_DATA, mobData);
 
@@ -63,12 +65,6 @@ public class LassoItem extends Item {
 			nbt.putDouble(NBTHelper.MOB_HEALTH, Math.round(target.getHealth() * 10) / 10.0);
 			nbt.putDouble(NBTHelper.MOB_MAX_HEALTH, target.getMaxHealth());
 			nbt.putBoolean(NBTHelper.MOB_HOSTILE, target instanceof Monster);
-
-			if (player.isCreative()) {
-				ItemStack newLasso = new ItemStack(this);
-				NBTHelper.setBaseTag(newLasso, nbt);
-				player.addItem(newLasso);
-			}
 
 			target.discard();
 			player.getInventory().setChanged();

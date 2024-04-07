@@ -2,6 +2,7 @@ package com.daqem.tinymobfarm;
 
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
 import com.daqem.tinymobfarm.block.MobFarmBlock;
+import com.daqem.tinymobfarm.event.MobInteractionEvent;
 import com.daqem.tinymobfarm.item.MobFarmBlockItem;
 import com.daqem.tinymobfarm.item.LassoItem;
 import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
@@ -72,6 +73,7 @@ public class TinyMobFarm {
 
     public static void init() {
         ConfigTinyMobFarm.init();
+        MobInteractionEvent.registerEvent();
     }
 
     public static MutableComponent translatable(String s) {
