@@ -16,8 +16,8 @@ public class ConfigTinyMobFarm {
 	public static final Supplier<Double> goldFarmSpeed;
 	public static final Supplier<Double> diamondFarmSpeed;
 	public static final Supplier<Double> emeraldFarmSpeed;
-	public static final Supplier<Double> ultimateFarmSpeed;
 	public static final Supplier<Double> infernoFarmSpeed;
+	public static final Supplier<Double> ultimateFarmSpeed;
 
 	static {
 		IConfigBuilder config = ConfigBuilders.newTomlConfig(TinyMobFarm.MOD_ID, null, false);
@@ -54,13 +54,14 @@ public class ConfigTinyMobFarm {
 				.comment("The speed of the emerald farm.")
 				.define("Emerald Farm Speed", 5.0, 0.001, Double.MAX_VALUE);
 
-		ultimateFarmSpeed = config
-				.comment("The speed of the ultimate farm.")
-				.define("Ultimate Farm Speed", 2.5, 0.001, Double.MAX_VALUE);
-
 		infernoFarmSpeed = config
 				.comment("The speed of the inferno farm.")
-				.define("Inferno Farm Speed", 0.5, 0.001, Double.MAX_VALUE);
+				.define("Inferno Farm Speed", 2.5, 0.001, Double.MAX_VALUE);
+
+		ultimateFarmSpeed = config
+				.comment("The speed of the ultimate farm.")
+				.define("Ultimate Farm Speed", 0.5, 0.001, Double.MAX_VALUE);
+
 
 		config.build();
 	}
