@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.daqem.tinymobfarm.ConfigTinyMobFarm;
-import com.daqem.tinymobfarm.TinyMobFarm;
+import com.daqem.tinymobfarm.util.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.util.NBTHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -16,14 +15,14 @@ import net.minecraft.world.level.block.Blocks;;
 
 public enum MobFarmType {
 
-	WOOD("wood_farm", Blocks.OAK_WOOD, false, new int[] {2, 3, 3}, ConfigTinyMobFarm.woodFarmSpeed.get()),
-	STONE("stone_farm", Blocks.STONE, false, new int[] {1, 2, 3}, ConfigTinyMobFarm.stoneFarmSpeed.get()),
-	IRON("iron_farm", Blocks.IRON_BLOCK, true, new int[] {1, 2}, ConfigTinyMobFarm.ironFarmSpeed.get()),
-	GOLD("gold_farm", Blocks.GOLD_BLOCK, true, new int[] {1, 1, 2}, ConfigTinyMobFarm.goldFarmSpeed.get()),
-	DIAMOND("diamond_farm", Blocks.DIAMOND_BLOCK, true, new int[] {1}, ConfigTinyMobFarm.diamondFarmSpeed.get()),
-	EMERALD("emerald_farm", Blocks.EMERALD_BLOCK, true, new int[] {0, 1, 1}, ConfigTinyMobFarm.emeraldFarmSpeed.get()),
-	INFERNAL("inferno_farm", Blocks.OBSIDIAN, true, new int[] {0, 0, 1}, ConfigTinyMobFarm.infernoFarmSpeed.get()),
-	ULTIMATE("ultimate_farm", Blocks.OBSIDIAN, true, new int[] {0}, ConfigTinyMobFarm.ultimateFarmSpeed.get());
+	WOOD("wood_farm", Blocks.OAK_WOOD, false, new int[] {2, 3, 3}, ConfigTinyMobFarm.woodFarmSpeed),
+	STONE("stone_farm", Blocks.STONE, false, new int[] {1, 2, 3}, ConfigTinyMobFarm.stoneFarmSpeed),
+	IRON("iron_farm", Blocks.IRON_BLOCK, true, new int[] {1, 2}, ConfigTinyMobFarm.ironFarmSpeed),
+	GOLD("gold_farm", Blocks.GOLD_BLOCK, true, new int[] {1, 1, 2}, ConfigTinyMobFarm.goldFarmSpeed),
+	DIAMOND("diamond_farm", Blocks.DIAMOND_BLOCK, true, new int[] {1}, ConfigTinyMobFarm.diamondFarmSpeed),
+	EMERALD("emerald_farm", Blocks.EMERALD_BLOCK, true, new int[] {0, 1, 1}, ConfigTinyMobFarm.emeraldFarmSpeed),
+	INFERNAL("inferno_farm", Blocks.OBSIDIAN, true, new int[] {0, 0, 1}, ConfigTinyMobFarm.infernoFarmSpeed),
+	ULTIMATE("ultimate_farm", Blocks.OBSIDIAN, true, new int[] {0}, ConfigTinyMobFarm.ultimateFarmSpeed);
 	
 	private final String registryName;
 	private final Block baseBlock;

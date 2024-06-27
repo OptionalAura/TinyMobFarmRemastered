@@ -3,6 +3,7 @@ package com.daqem.tinymobfarm.blockentity;
 import com.daqem.tinymobfarm.TinyMobFarm;
 import com.daqem.tinymobfarm.client.gui.MobFarmMenu;
 import com.daqem.tinymobfarm.MobFarmType;
+import com.daqem.tinymobfarm.util.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.util.EntityHelper;
 import com.daqem.tinymobfarm.util.FakePlayerHelper;
 import com.daqem.tinymobfarm.util.NBTHelper;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -39,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.daqem.tinymobfarm.util.NBTHelper.MOB_ID;
 
 public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Container {
 
@@ -119,6 +123,14 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 
 		if (this.level instanceof ServerLevel serverLevel) {
 			List<ItemStack> drops = EntityHelper.generateLoot(new ResourceLocation(lootTableLocation), serverLevel, lasso);
+			if(ConfigTinyMobFarm.chickensLayEggs){
+				if(NBTHelper.getBaseTag(lasso).getString(MOB_ID).equals(EntityType.CHICKEN.arch$registryName().toString())){
+					if(Math.random() <= ConfigTinyMobFarm.chickenEggChance){
+						ItemStack egg = new ItemStack(Items.EGG);
+						drops.add(egg);
+					}
+				}
+			}
 			Direction direction = Direction.DOWN;
 			BlockEntity tileEntity = this.level.getBlockEntity(this.worldPosition.relative(direction));
 			if (tileEntity instanceof Container container) {
@@ -136,7 +148,8 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 					drops.removeAll(toRemove);
 				}
 			}
-
+			if(ConfigTinyMobFarm.requireFarmsToHaveStorage)
+				return;
 			for (ItemStack stack : drops) {
 				ItemEntity entityItem = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1, this.worldPosition.getZ() + 0.5, stack);
 				this.level.addFreshEntity(entityItem);
@@ -152,7 +165,7 @@ public class MobFarmBlockEntity extends BlockEntity implements MenuProvider, Con
 			} else {
 				CompoundTag nbt = NBTHelper.getBaseTag(this.getLasso());
 				String mobName = nbt.getString(NBTHelper.MOB_NAME);
-				String mobId = nbt.getString(NBTHelper.MOB_ID);
+				String mobId = nbt.getString(MOB_ID);
 				//noinspection EqualsBetweenInconvertibleTypes
 				if (this.livingEntity == null || !this.livingEntity.getName().getContents().equals(mobName)) {
 					CompoundTag entityData = nbt.getCompound(NBTHelper.MOB_DATA);

@@ -6,12 +6,14 @@ import com.daqem.tinymobfarm.event.MobInteractionEvent;
 import com.daqem.tinymobfarm.item.MobFarmBlockItem;
 import com.daqem.tinymobfarm.item.LassoItem;
 import com.daqem.tinymobfarm.blockentity.MobFarmBlockEntity;
+import com.daqem.tinymobfarm.util.ConfigTinyMobFarm;
 import com.google.common.base.Suppliers;
 import com.mojang.logging.LogUtils;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -72,8 +74,8 @@ public class TinyMobFarm {
     public static final RegistrySupplier<MobFarmBlockItem> ULTIMATE_MOB_FARM = ITEMS.register(getId("ultimate_farm"), () -> new MobFarmBlockItem(TinyMobFarm.ULTIMATE_MOB_FARM_BLOCK.get(), new Item.Properties()));
 
     public static void init() {
-        ConfigTinyMobFarm.init();
         MobInteractionEvent.registerEvent();
+        MidnightConfig.init(MOD_ID, ConfigTinyMobFarm.class);
     }
 
     public static MutableComponent translatable(String s) {

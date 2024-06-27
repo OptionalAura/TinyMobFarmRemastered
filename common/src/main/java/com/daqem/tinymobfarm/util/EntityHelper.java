@@ -1,7 +1,5 @@
 package com.daqem.tinymobfarm.util;
 
-import com.daqem.tinymobfarm.ConfigTinyMobFarm;
-import com.daqem.tinymobfarm.TinyMobFarm;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
@@ -37,11 +35,17 @@ public class EntityHelper {
 		LootParams.Builder builder = new LootParams.Builder(level);
 		ServerPlayer daniel = FakePlayerHelper.getPlayer(level);
 
-		int lootingLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
 		ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
-		if (ConfigTinyMobFarm.allowLassoLooting.get()) {
+		if (ConfigTinyMobFarm.allowLassoLooting) {
+			int lootingLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
 			if (lootingLevel > 0) {
 				sword.enchant(Enchantments.MOB_LOOTING, lootingLevel);
+			}
+		}
+		if (ConfigTinyMobFarm.allowLassoFireAspect) {
+			int fireAspectLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, stack);
+			if (fireAspectLevel > 0) {
+				sword.enchant(Enchantments.FIRE_ASPECT, fireAspectLevel);
 			}
 		}
 		daniel.addItem(sword);

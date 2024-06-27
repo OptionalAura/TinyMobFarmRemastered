@@ -31,6 +31,25 @@
 	"tinymobfarm.tooltip.farm_rate": "Generates loot every %d seconds.",
 	"tinymobfarm.tooltip.durability_info": "Lasso durability loss:",
 	"tinymobfarm.tooltip.no_hostile": "Cannot farm hostile mobs.",
-	"tinymobfarm.tooltip.no_durability": "- %d%% chance to loss no durability",
-	"tinymobfarm.tooltip.default_durability": "- %d%% chance to loss %d durability"
+	"tinymobfarm.tooltip.no_durability": "- %d%% chance to lose no durability",
+	"tinymobfarm.tooltip.default_durability": "- %d%% chance to lose %d durability",
+
+	"tinymobfarm.midnightconfig.title": "Tiny Mob Farm Config",
+	"tinymobfarm.midnightconfig.lassoDurability": "The durability of the lasso",
+	"tinymobfarm.midnightconfig.allowLassoLooting": "Whether the looting enchantment will be taken into consideration when generating mob loot",
+	"tinymobfarm.midnightconfig.restrictedMobs": "Mobs that cannot be lassoed",
+	"tinymobfarm.midnightconfig.chickensLayEggs": "Chickens may lay eggs while in a farm",
+	"tinymobfarm.midnightconfig.chickenEggChance": "The chance of a chicken dropping an egg",
+
+	"tinymobfarm.midnightconfig.category.farmSpeed": "Farm Speed",
+	"tinymobfarm.midnightconfig.farmSpeedText": "The speed of each tier of farm in seconds",
+	"tinymobfarm.midnightconfig.woodFarmSpeed": "Wood",
+	"tinymobfarm.midnightconfig.stoneFarmSpeed": "Stone",
+	"tinymobfarm.midnightconfig.ironFarmSpeed": "Iron",
+	"tinymobfarm.midnightconfig.goldFarmSpeed": "Gold",
+	"tinymobfarm.midnightconfig.diamondFarmSpeed": "Diamond",
+	"tinymobfarm.midnightconfig.emeraldFarmSpeed": "Emerald",
+	"tinymobfarm.midnightconfig.infernoFarmSpeed": "Inferno",
+	"tinymobfarm.midnightconfig.ultimateFarmSpeed": "Ultimate",
+	"tinymobfarm.midnightconfig.requireFarmsToHaveStorage": "Require farms to have storage underneath them. If false, items may be spawned directly in the world and cause lag."
 }

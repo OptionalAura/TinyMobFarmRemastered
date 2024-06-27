@@ -1,10 +1,9 @@
 package com.daqem.tinymobfarm.item;
 
-import com.daqem.tinymobfarm.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.TinyMobFarm;
+import com.daqem.tinymobfarm.util.ConfigTinyMobFarm;
 import com.daqem.tinymobfarm.util.EntityHelper;
 import com.daqem.tinymobfarm.util.NBTHelper;
-import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,12 +26,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.regex.Pattern;
+
+import static com.daqem.tinymobfarm.util.ConfigTinyMobFarm.restrictedMobs;
 
 public class LassoItem extends Item {
 
 	public LassoItem(Properties properties) {
 		//noinspection UnstableApiUsage
-		super(properties.arch$tab(TinyMobFarm.JOBSPLUS_TOOLS_TAB).defaultDurability(ConfigTinyMobFarm.lassoDurability.get()));
+		super(properties.arch$tab(TinyMobFarm.JOBSPLUS_TOOLS_TAB).defaultDurability(ConfigTinyMobFarm.lassoDurability));
+
 	}
 
 	public @NotNull InteractionResult interactMob(ItemStack stack, Player player, LivingEntity target, InteractionHand interactionHand) {
@@ -40,14 +43,6 @@ public class LassoItem extends Item {
 
 		Level level = player.level();
 		CompoundTag nbt = NBTHelper.getBaseTag(stack);
-
-		// Cannot capture boss.
-		if (!target.canChangeDimensions()) {
-			if (!level.isClientSide()) {
-				player.sendSystemMessage(TinyMobFarm.translatable("error.cannot_capture_boss"));
-			}
-			return InteractionResult.SUCCESS;
-		}
 
 		if (!level.isClientSide()) {
 			CompoundTag mobData = target.saveWithoutId(new CompoundTag());
@@ -76,16 +71,19 @@ public class LassoItem extends Item {
 	@Override
 	public @NotNull InteractionResult useOn(UseOnContext context) {
 		Player player = context.getPlayer();
-		if (player == null) return InteractionResult.FAIL;
+		if (player == null)
+			return InteractionResult.SUCCESS;
 
 		ItemStack stack = context.getItemInHand();
-		if (!NBTHelper.hasMob(stack)) return InteractionResult.FAIL;
+		if (!NBTHelper.hasMob(stack))
+			return InteractionResult.SUCCESS;
 
 		Direction facing = context.getClickedFace();
 		BlockPos pos = context.getClickedPos().offset(facing.getStepX(), facing.getStepY(), facing.getStepZ());
 		Level level = context.getLevel();
 
-		if (!player.mayUseItemAt(pos, facing, stack)) return InteractionResult.FAIL;
+		if (!player.mayUseItemAt(pos, facing, stack))
+			return InteractionResult.SUCCESS;
 
 		if (!level.isClientSide()) {
 			Entity mob = EntityHelper.getEntityFromLasso(stack, pos, level);
@@ -126,5 +124,17 @@ public class LassoItem extends Item {
 	public Component getMobName(ItemStack itemStack) {
 		CompoundTag nbt = NBTHelper.getBaseTag(itemStack);
 		return TinyMobFarm.literal(nbt.getString(NBTHelper.MOB_NAME));
+	}
+
+	public static boolean isMobDisabled(Player player, LivingEntity target){
+		//soulsweapons:.*,bosses_of_mass_destruction:.*
+		if(target.getType().arch$registryName() != null){
+			for(String s : restrictedMobs) {
+				if(Pattern.matches(s, target.getType().arch$registryName().toString())){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
